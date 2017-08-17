@@ -1,3 +1,4 @@
+from matplotlib.pyplot import xlim, ylim
 def loadData():
     data = open("test",'r')
     size = data.readline().strip().split("=")
@@ -21,6 +22,5 @@ if __name__ == "__main__":
     df = df.sort_values(by=['Square_Foot', 'Price'], ascending=[True, True])
     #df = df.cumsum()
     print(df)
-    #plt.figure(); 
-    df.plot(x='Square_Foot', y='Price', linewidth=2.0)
+    df.plot(x='Square_Foot', y='Price', linewidth=2.0, xlim=(1000,2500), ylim=(0,500))
     plt.show()
