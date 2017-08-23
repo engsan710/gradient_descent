@@ -59,7 +59,8 @@ if __name__ == "__main__":
         print(SSE.round(3))
     
         print("Printing the summ SSE:")
-        print(sum( SSE.round(3) ))
+        SSE_total = sum( SSE.round(3) )
+        print(SSE_total)
         
         # Calculating the error gradient 
         dSSE_da_list = -( Y - YP)
@@ -75,21 +76,27 @@ if __name__ == "__main__":
         print("Printing the summ dSSE_db:")
         dSSE_db = sum( dSSE_db_list.round(3) )
         print(dSSE_db)
-        return {'dSSE_da': dSSE_da, 'dSSE_db': dSSE_db}
+        return {'dSSE_da': dSSE_da, 'dSSE_db': dSSE_db, 'SSE': SSE_total}
     
 
     # a and b are random variables use to create a straight line that goes through the data points
     a = 0.45
     b = 0.75
-    for r in range(1, 10):
-        learning_rate = r/100
+    SSE = 0
+    learning_rate = 0.01
+    while SSE < 0.1:
         print("**********************\nRate of learning:")
         print(learning_rate)
         updated_values = calculate_values(a, b)
+        
+        if updated_values['SSE'] < 0.14 :
+            SSE = updated_values['SSE']
+         
         #Update the random variables a and b to minimize the error
-        # r is the learning rate
         a = a - (learning_rate * updated_values['dSSE_da'])
         b = b - (learning_rate * updated_values['dSSE_db'])
+        learning_rate = learning_rate + 0.01
+        
     
     
     
